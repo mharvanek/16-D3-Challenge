@@ -82,7 +82,7 @@ function renderNewXCircles(circlesGroup, newXScale, chosenXaxis) {
 
   circlesGroup.transition()
     .duration(1000)
-    .attr("cx", d => newXScale(d[chosenXAxis]));
+    .attr("cx", d => newXScale(d[chosenXAxis]))   
   return circlesGroup;
 }
 
@@ -91,6 +91,22 @@ function renderNewYCircles(circlesGroup, newYScale, chosenYaxis) {
   circlesGroup.transition()
     .duration(1000)
     .attr("cy", d => newYScale(d[chosenYAxis]));
+  return circlesGroup;
+}
+
+function renderNewXText(circlesGroup, newXScale, chosenXAxis) {
+  
+  circlesGroup.transition()
+    .duration(1000)
+    .attr("x", d => newXScale(d[chosenXAxis]))   
+  return circlesGroup;
+}
+
+function renderNewYText(circlesGroup, newYScale, chosenYAxis) {
+  
+  circlesGroup.transition()
+    .duration(1000)
+    .attr("y", d => newYScale(d[chosenYAxis]))   
   return circlesGroup;
 }
 
@@ -184,25 +200,25 @@ d3.csv("assets/data/data.csv")
     .attr("fill", "blue")
     .attr("opacity", ".7")
 
-  // Append Text to Circles
-  // var textGroup = chartGroup.selectAll(".stateText")
-  //     .data(allData)
-  //     .enter()
-  //     .append("text")
-  //     .attr("x", d => xLinearScale(d[chosenXAxis]))
-  //     .attr("y", d => yLinearScale(d[chosenYAxis] * .98))
-  //     .text(d => (d.abbr))
-  //     .attr("class", "stateText")
-  //     .attr("font-size", "8px")
-  //     .attr("text-anchor", "middle")
-  //     .attr("fill", "white");      
+// // //  Append Text to Circles
+  var textGroup = chartGroup.selectAll(".stateText")
+      .data(allData)
+      .enter()
+      .append("text")
+      .attr("x", d => xLinearScale(d[chosenXAxis]))
+      .attr("y", d => yLinearScale(d[chosenYAxis] * .98))
+      .text(d => (d.abbr))
+      .attr("class", "stateText")
+      .attr("font-size", "8px")
+      .attr("text-anchor", "middle")
+      .attr("fill", "white");      
       
   // Create group for x axis labels
   var xlabelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
   var ylabelsGroup = chartGroup.append("g")
-  .attr("transform", `translate(-25, ${height / 2})`);    
+    .attr("transform", `translate(-25, ${height / 2})`);   
 
   var povertyLabel = xlabelsGroup.append("text")
     .attr("x", 0)
@@ -272,7 +288,9 @@ d3.csv("assets/data/data.csv")
 
         // updates circles with new x values
         circlesGroup = renderNewXCircles(circlesGroup, xLinearScale, chosenXAxis);
-        textGroup = renderNewXCircles(circlesGroup, xLinearScale, chosenXAxis);
+
+        // updates circles with new text values
+        textGroup = renderNewXText(textGroup, xLinearScale, chosenXAxis);
 
         // updates tooltips with new info
         circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
@@ -339,6 +357,9 @@ d3.csv("assets/data/data.csv")
    
         //  updates circles with new y values
          circlesGroup = renderNewYCircles(circlesGroup, yLinearScale, chosenYAxis);
+
+        // updates circles with new text values
+        textGroup = renderNewYText(textGroup, yLinearScale, chosenYAxis);
    
         //  // updates tooltips with new info
          circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
