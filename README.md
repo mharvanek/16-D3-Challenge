@@ -1,4 +1,4 @@
-# Correlations Discovered Between Health Risks and Various Factors
+![example](example.png)
 
 ## Background
 
@@ -10,9 +10,6 @@ The data set included with the project is based on 2014 ACS 1-year estimates: [h
 
 
 Created an interactive scatter plot using D3 to show the correlation between two selected data variables such as `Healthcare vs. Poverty` or `Smokers vs. Age`.
-
-##### Image of Graph
-![example](example.png)
 
 #### Requirements
 python -m http.server
